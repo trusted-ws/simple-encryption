@@ -8,8 +8,24 @@
 #define PATH_MAX_SIZE    255
 
 void help_and_exit(void) {
-    printf("Usage: otp <filename> <keyfile> <output>\n");
+    printf("Usage: otp <filename> <keyfile> <output> [-f]\n");
     exit(1);
+}
+
+void fullhelp_and_exit(void) {
+    printf(" OTP version %s\n\n"
+           " Required arguments:\n"
+           "   <filename>       Path of file to be encrypted.\n"
+           "   <keyfile>        Path of key file.\n"
+           "   <output>         Output filename.\n\n"
+           " Unique arguments:\n"
+           "   --help           Show this message.\n"
+           "   --version        Show the version.\n\n"
+           " Optional arguments:\n"
+           "   -f               Force overwriting when the output file exists.\n\n"
+            , VERSION);
+    exit(0);
+
 }
 
 struct arguments {
@@ -33,7 +49,13 @@ struct arguments parse_arguments(size_t argc, char **argv) {
             printf("OTP version %s\n", VERSION);
             exit(0);
         }
+
+        if (strcmp(argv[i], "--help") == 0)
+            fullhelp_and_exit();
     }
+
+    if (argc < 4)
+        help_and_exit();
 
     strncpy(args.filename, argv[1], PATH_MAX_SIZE);
     strncpy(args.keyfile, argv[2], PATH_MAX_SIZE);
@@ -117,9 +139,6 @@ void encrypt(struct arguments args) {
 
 
 int main(int argc, char *argv[]) {
-
-    if (argc < 4)
-        help_and_exit();
 
     struct arguments args = parse_arguments(argc, argv);
     
