@@ -7,7 +7,7 @@
 #define PATH_MAX_SIZE   255
 
 void help_and_exit(void) {
-    printf("Usage: ./simple <filename> <keyfile> <output>\n");
+    printf("Usage: otp <filename> <keyfile> <output>\n");
     exit(1);
 }
 

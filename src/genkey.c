@@ -93,7 +93,7 @@ nodevrandom:
 int main(int argc, char **argv) {
 
     if (argc != 3) {
-        fprintf(stderr, "Usage: <output> <bytes>\n");
+        fprintf(stderr, "Usage: genkey <output> <bytes>\n");
         return 1;    
     }
     
