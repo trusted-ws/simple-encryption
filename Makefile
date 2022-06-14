@@ -1,11 +1,9 @@
-
-
-MAIN=otp
-GENK=genkey
+MAIN=src/otp
+GENK=src/genkey
 
 all:
-	$(CC) main.c -o $(MAIN)
-	$(CC) genkey.c -o $(GENK)
+	$(CC) src/main.c -o $(MAIN)
+	$(CC) src/genkey.c -o $(GENK)
 
 
 clean:
@@ -26,10 +24,9 @@ install:
 		exit 1; \
 	fi;
 
-	cp otp /usr/bin/; cp genkey /usr/bin/; \
+	cp src/otp /usr/bin/; cp src/genkey /usr/bin/; \
 	chmod +x /usr/bin/otp; chmod +x /usr/bin/genkey; \
 
 uninstall:
 	@$(call checkifroot)
 	rm /usr/bin/otp /usr/bin/genkey
-
