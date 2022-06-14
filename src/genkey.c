@@ -104,8 +104,6 @@ int main(int argc, char **argv) {
         return 3;
     }
 
-
-    printf("args.bytes: %lu\n", args.bytes);
     char *buffer = malloc(args.bytes);
     FILE *fp = fopen(args.filename, "w");
 
