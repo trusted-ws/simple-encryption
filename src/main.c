@@ -4,7 +4,8 @@
 #include <errno.h>
 #include <unistd.h>
 
-#define PATH_MAX_SIZE   255
+#define VERSION         "1.0.0"
+#define PATH_MAX_SIZE    255
 
 void help_and_exit(void) {
     printf("Usage: otp <filename> <keyfile> <output>\n");
@@ -15,11 +16,24 @@ struct arguments {
     char filename[PATH_MAX_SIZE];
     char keyfile[PATH_MAX_SIZE];
     char output[PATH_MAX_SIZE];
+    _Bool force_overwriting;
 };
 
-struct arguments parse_arguments(char **argv) {
+struct arguments parse_arguments(size_t argc, char **argv) {
     
     struct arguments args;
+    args.force_overwriting = 0;
+
+    for (int i = 0; i < argc; i++) {
+
+        if (strcmp(argv[i], "-f") == 0)
+            args.force_overwriting = 1;
+
+        if (strcmp(argv[i], "--version") == 0) {
+            printf("OTP version %s\n", VERSION);
+            exit(0);
+        }
+    }
 
     strncpy(args.filename, argv[1], PATH_MAX_SIZE);
     strncpy(args.keyfile, argv[2], PATH_MAX_SIZE);
@@ -56,9 +70,11 @@ FILE *open_file_or_exit(const char* filename, const char* mode) {
 
 void encrypt(struct arguments args) {
 
-    if (file_exists(args.output)) {
-        fprintf(stderr, "Error: output file (%s) already exists!\n", args.output);
-        exit(3);
+    if (!args.force_overwriting) {
+        if (file_exists(args.output)) {
+            fprintf(stderr, "Error: output file (%s) already exists!\n", args.output);
+            exit(3);
+        }
     }
 
     int file_len, key_len, i;
@@ -102,10 +118,10 @@ void encrypt(struct arguments args) {
 
 int main(int argc, char *argv[]) {
 
-    if (argc != 4) 
+    if (argc < 4)
         help_and_exit();
 
-    struct arguments args = parse_arguments(argv);
+    struct arguments args = parse_arguments(argc, argv);
     
     encrypt(args);
 
