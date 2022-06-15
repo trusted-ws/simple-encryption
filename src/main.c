@@ -13,7 +13,8 @@ void help_and_exit(void) {
 }
 
 void fullhelp_and_exit(void) {
-    printf(" OTP version %s\n\n"
+    printf("\n OTP version %s\n\n"
+           " Usage: otp <filename> <keyfile> <output> [-f]\n\n"
            " Required arguments:\n"
            "   <filename>       Path of file to be encrypted.\n"
            "   <keyfile>        Path of key file.\n"
