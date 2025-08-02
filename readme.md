@@ -71,7 +71,29 @@ Usages
    plaintext, never reusing keys, securely distributing and storing keys, and
    destroying them after use.
 
-``` 
+```
+
+
+Extras
+------
+Encrypted files generated without the `--ignore-otp-filetype` flag include a custom
+binary header that defines a unique file type. To allow the file command to
+recognize these files, you can use the *`simple_otp_type.magic`* file located in the
+project root directory.
+
+1. To install it you can:
+```bash
+# make sure to have a backup:
+sudo cp /etc/magic /etc/magic.bak
+
+# install with:
+sudo tee -a /etc/magic < simple_otp_type.magic
+```
+
+2. Recompile file database:
+```bash
+sudo file -C -m /etc/magic
+```
 
 
 References:
