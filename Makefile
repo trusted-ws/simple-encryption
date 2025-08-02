@@ -2,7 +2,7 @@ MAIN=src/otp
 GENK=src/genkey
 
 all:
-	$(CC) src/main.c -o $(MAIN)
+	$(CC) src/main.c src/otpfile.c -o $(MAIN)
 	$(CC) src/genkey.c -o $(GENK)
 
 

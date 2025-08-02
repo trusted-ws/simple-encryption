@@ -1,0 +1,4 @@
+0       string  \x7fOTP              Simple OTP Encrypted File
+>4      byte    =0x01                (v1)
+>4      byte    =0x02                (v2)
+>4      byte    x                    (unknown version)
